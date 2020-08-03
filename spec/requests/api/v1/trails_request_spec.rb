@@ -7,20 +7,19 @@ describe "Trails API" do
     expect(response).to be_successful
 
     json = JSON.parse(response.body, symbolize_names: true)
-    require "pry"; binding.pry
     response = json[:data]
 
     expect(response[:type]).to eq('trail')
     expect(response[:attributes][:location]).to eq('denver,co')
     expect(response[:attributes][:forecast]).to_not be_empty
     expect(response[:attributes][:forecast][:summary]).to_not be_empty
-    expect(response[:attributes][:forecast][:temperature]).to_not be_empty
+    expect(response[:attributes][:forecast][:temperature]).to be_a Integer
 
-    expect(response[:trails]).to be_a Array
-    expect(response[:trails].first[:name]).to_not be_empty
-    expect(response[:trails].first[:summary]).to_not be_empty
-    expect(response[:trails].first[:difficulty]).to_not be_empty
-    expect(response[:trails].first[:location]).to_not be_empty
-    expect(response[:trails].first[:distance_to_trail]).to_not be_empty
+    expect(response[:attributes][:trails]).to be_a Array
+    expect(response[:attributes][:trails].first[:name]).to_not be_empty
+    expect(response[:attributes][:trails].first[:summary]).to_not be_empty
+    expect(response[:attributes][:trails].first[:difficulty]).to_not be_empty
+    expect(response[:attributes][:trails].first[:location]).to_not be_empty
+    expect(response[:attributes][:trails].first[:distance_to_trail]).to_not be_empty
   end
 end

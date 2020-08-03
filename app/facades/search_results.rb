@@ -18,5 +18,8 @@ class SearchResults
 
   def trails(coordinates)
     json = HikingProjectService.new.get_trails(coordinates)
+    json[:trails].map do |trail_info|
+      Trail.new(trail_info)
+    end
   end
 end

@@ -16,4 +16,11 @@ class Forecast
     @hourly_forecast = forecast[:hourly]
     @daily_forecast = forecast[:daily]
   end
+
+  def trail_forecast
+    {
+      summary: current_weather[:weather].first[:description],
+      temperature: current_weather[:temp].round
+   }
+  end
 end

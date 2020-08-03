@@ -15,8 +15,9 @@ class MapquestService
 
   def get_distance(from, to)
     response = conn.get('/directions/v2/route') do |req|
-      req.params['from'] = location
+      req.params['from'] = from
       req.params['to'] = to
     end
+    JSON.parse(response.body, symbolize_names: true)
   end
 end

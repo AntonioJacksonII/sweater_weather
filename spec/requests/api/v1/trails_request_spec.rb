@@ -20,6 +20,6 @@ describe "Trails API" do
     expect(response[:attributes][:trails].first[:summary]).to_not be_empty
     expect(response[:attributes][:trails].first[:difficulty]).to_not be_empty
     expect(response[:attributes][:trails].first[:location]).to_not be_empty
-    expect(response[:attributes][:trails].first[:distance_to_trail]).to_not be_empty
+    expect(response[:attributes][:trails].first[:distance_to_trail]).to be_a Float
   end
 end

@@ -12,4 +12,11 @@ class MapquestService
     end
     JSON.parse(response.body, symbolize_names: true)
   end
+
+  def get_distance(from, to)
+    response = conn.get('/directions/v2/route') do |req|
+      req.params['from'] = location
+      req.params['to'] = to
+    end
+  end
 end

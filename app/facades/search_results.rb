@@ -12,6 +12,10 @@ class SearchResults
      longitude: json[:results].first[:locations].first[:latLng][:lng]}
   end
 
+  def distance(from, to)
+    MapquestService.new.get_distance(from, to)
+  end
+
   def open_weather_forecast(coordinates)
     OpenweatherService.new.get_forecast(coordinates)
   end

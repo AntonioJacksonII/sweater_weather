@@ -8,6 +8,6 @@ class Trails
     @id = nil
     @location = location
     @forecast = forecast
-    @trails = trails
+    @trails = Trail.all
   end
 end

@@ -7,6 +7,7 @@ describe "Forecast API" do
     expect(response).to be_successful
 
     json = JSON.parse(response.body, symbolize_names: true)
+    require "pry"; binding.pry
     forecast = json[:data]
 
     expect(forecast[:type]).to eq('forecast')

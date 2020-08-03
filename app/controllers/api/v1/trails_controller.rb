@@ -6,7 +6,8 @@ class Api::V1::TrailsController < ApplicationController
     coordinates = search_results.lat_long
     forecast_results = search_results.open_weather_forecast(coordinates)
     trail_forecast = Forecast.new(location, forecast_results).trail_forecast
-    @trails = search_results.trails(coordinates)
-    render json: TrailSerializer.new(@trails)
+    @options = search_results.trails(coordinates)
+    @trail = Trail.new(location, trail_forecast, @options)
+    render json: TrailSerializer.new(@trail)
   end
 end

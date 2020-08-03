@@ -1,22 +1,13 @@
 class Trail
   attr_reader :id,
-              :name,
-              :summary,
-              :difficulty,
               :location,
-              :distance_to_trail
+              :forecast,
+              :trails
 
-  def initialize(trail_info)
+  def initialize(location, forecast, trails)
     @id = nil
-    @name = trail_info[:name]
-    @summary = trail_info[:summary]
-    @difficulty = trail_info[:difficulty]
-    @location = trail_info[:location]
-    @latitute = trail_info[:latitude]
-    @longitude = trail_info[:longitude]
-  end
-
-  def distance_to_trail
-
+    @location = location
+    @forecast = forecast
+    @trails = trails
   end
 end

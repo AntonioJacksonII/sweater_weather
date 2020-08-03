@@ -13,7 +13,7 @@ class SearchResults
   end
 
   def distance(from, to)
-    MapquestService.new.get_distance(from, to)
+    MapquestService.new.get_distance(from, to)[:route][:distance]
   end
 
   def open_weather_forecast(coordinates)
@@ -24,18 +24,19 @@ class SearchResults
     json = HikingProjectService.new.get_trails(coordinates)
     results = json[:trails]
     results.map do |trail|
-      clean_trail(trail)
+      clean_trail(trail, coordinates)
     end
   end
 
   private
 
-  def clean_trail(trail)
+  def clean_trail(trail, coordinates)
     clean_hash = {}
     clean_hash[:name] = trail[:name]
     clean_hash[:summary] = trail[:summary]
     clean_hash[:difficulty] = trail[:difficulty]
     clean_hash[:location] = trail[:location]
+    clean_hash[:distance_to_trail] = distance("#{trail[:latitude]},#{trail[:longitude]}","#{coordinates[:latitude]},#{coordinates[:longitude]}")
     clean_hash
   end
 end

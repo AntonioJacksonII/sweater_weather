@@ -22,6 +22,21 @@ class SearchResults
 
   def trails(coordinates)
     json = HikingProjectService.new.get_trails(coordinates)
-    json[:trails]
+    results = json[:trails]
+    results.map do |trail|
+      clean_trail(trail)
+    end
+  end
+
+  private
+
+  def clean_trail(trail)
+    clean_hash = {}
+    clean_hash[:name]
+    clean_hash[:summary]
+    clean_hash[:difficulty]
+    clean_hash[:location]
+
+    require "pry"; binding.pry
   end
 end

@@ -15,4 +15,8 @@ class SearchResults
   def open_weather_forecast(coordinates)
     OpenweatherService.new.get_forecast(coordinates)
   end
+
+  def trails(coordinates)
+    json = HikingProjectService.new.get_trails(coordinates)
+  end
 end

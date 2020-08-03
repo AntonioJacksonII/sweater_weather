@@ -7,6 +7,7 @@ describe "Trails API" do
     expect(response).to be_successful
 
     json = JSON.parse(response.body, symbolize_names: true)
+    require "pry"; binding.pry
     response = json[:data]
 
     expect(response[:type]).to eq('trail')

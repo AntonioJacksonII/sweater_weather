@@ -12,8 +12,12 @@ class Forecast
     @location = location
     @latitude = forecast[:lat]
     @longitude = forecast[:lon]
-    @current_weather = forecast[:current]
+    @current_weather = clean_current_weather(forecast)
     @hourly_forecast = forecast[:hourly]
     @daily_forecast = forecast[:daily]
+  end
+
+  def clean_current_weather(forecast)
+    forecast[:current].without(:pressure, :dew_point, :clouds, :wind_speed, :wind_deg, :wind_gust)
   end
 end

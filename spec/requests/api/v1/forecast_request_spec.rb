@@ -41,6 +41,14 @@ describe "Forecast API" do
     expect(forecast[:attributes][:current_weather]).to_not have_key(:wind_deg)
     expect(forecast[:attributes][:current_weather]).to_not have_key(:wind_gust)
     expect(forecast[:attributes][:hourly_forecast]).to_not be_empty
+    expect(forecast[:attributes][:hourly_forecast].count).to eq(8)
+    expect(forecast[:attributes][:hourly_forecast].first.keys.count).to eq(3)
+    expect(forecast[:attributes][:hourly_forecast].first).to have_key(:dt)
+    expect(forecast[:attributes][:hourly_forecast].first).to have_key(:temp)
+    expect(forecast[:attributes][:hourly_forecast].first).to have_key(:weather)
+    expect(forecast[:attributes][:hourly_forecast].first[:weather].keys.count).to eq(1)
+    expect(forecast[:attributes][:hourly_forecast].first[:weather]).to have_key(:icon)
+    expect(forecast[:attributes][:hourly_forecast].first[:weather][:icon]).to_not be_empty
     expect(forecast[:attributes][:daily_forecast]).to_not be_empty
   end
 end

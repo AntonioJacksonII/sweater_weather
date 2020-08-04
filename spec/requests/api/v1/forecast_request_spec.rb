@@ -31,9 +31,9 @@ describe "Forecast API" do
     expect(forecast[:attributes][:current_weather]).to have_key(:uvi)
     expect(forecast[:attributes][:current_weather]).to have_key(:visibility)
     expect(forecast[:attributes][:current_weather]).to have_key(:weather)
-    expect(forecast[:attributes][:current_weather][:weather].first).to have_key(:main)
-    expect(forecast[:attributes][:current_weather][:weather].first).to have_key(:description)
-    expect(forecast[:attributes][:current_weather][:weather].first).to have_key(:icon)
+    expect(forecast[:attributes][:current_weather][:weather]).to have_key(:main)
+    expect(forecast[:attributes][:current_weather][:weather]).to have_key(:description)
+    expect(forecast[:attributes][:current_weather][:weather]).to have_key(:icon)
     expect(forecast[:attributes][:current_weather]).to_not have_key(:pressure)
     expect(forecast[:attributes][:current_weather]).to_not have_key(:dew_point)
     expect(forecast[:attributes][:current_weather]).to_not have_key(:clouds)
@@ -50,5 +50,17 @@ describe "Forecast API" do
     expect(forecast[:attributes][:hourly_forecast].first[:weather]).to have_key(:icon)
     expect(forecast[:attributes][:hourly_forecast].first[:weather][:icon]).to_not be_empty
     expect(forecast[:attributes][:daily_forecast]).to_not be_empty
+    expect(forecast[:attributes][:daily_forecast].count).to eq(6)
+    expect(forecast[:attributes][:daily_forecast].first.keys.count).to eq(4)
+    expect(forecast[:attributes][:daily_forecast].first).to have_key(:dt)
+    expect(forecast[:attributes][:daily_forecast].first).to have_key(:temp)
+    expect(forecast[:attributes][:daily_forecast].first).to have_key(:weather)
+    expect(forecast[:attributes][:daily_forecast].first).to have_key(:rain)
+    expect(forecast[:attributes][:daily_forecast].first[:temp].keys.count).to eq(2)
+    expect(forecast[:attributes][:daily_forecast].first[:temp]).to have_key(:min)
+    expect(forecast[:attributes][:daily_forecast].first[:temp]).to have_key(:max)
+    expect(forecast[:attributes][:daily_forecast].first[:weather].keys.count).to eq(2)
+    expect(forecast[:attributes][:daily_forecast].first[:weather]).to have_key(:main)
+    expect(forecast[:attributes][:daily_forecast].first[:weather]).to have_key(:icon)
   end
 end

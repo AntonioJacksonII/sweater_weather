@@ -1,6 +1,6 @@
 class Api::V1::ForecastController < ApplicationController
 
-  def create
+  def index
     location = params[:location]
     search_results = SearchResults.new(location)
     coordinates = search_results.lat_long

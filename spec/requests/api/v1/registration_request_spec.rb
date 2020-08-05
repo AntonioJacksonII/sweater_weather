@@ -29,10 +29,7 @@ describe "User Registration API" do
                    "password_confirmation": "passwor"}
     post "/api/v1/users", params: user_params
 
-    expect(response).to be unsuccessful
     expect(response.status).to eq(400)
-
-    json = JSON.parse(response.body, symbolize_names: true)
-    require "pry"; binding.pry
+    expect(response.body).to eq("Password confirmation doesn't match Password")
   end
 end

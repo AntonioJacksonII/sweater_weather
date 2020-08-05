@@ -45,9 +45,36 @@ describe "User Registration API" do
                    "password": "password",
                    "password_confirmation": "password"}
     post "/api/v1/users", params: user_params
+    expect(response.status).to eq(201)
     post "/api/v1/users", params: user_params
 
     expect(response.status).to eq(400)
     expect(response.body).to eq("Email has already been taken")
+  end
+
+  it "returns a 400 level status code for missing fields" do
+    user_params = {"email": "",
+                   "password": "password",
+                   "password_confirmation": "password"}
+    post "/api/v1/users", params: user_params
+
+    expect(response.status).to eq(400)
+    expect(response.body).to eq("Email can't be blank")
+
+    user_params = {"email": "whatever@example.com",
+                   "password": "",
+                   "password_confirmation": "password"}
+    post "/api/v1/users", params: user_params
+
+    expect(response.status).to eq(400)
+    expect(response.body).to eq("Password can't be blank")
+
+    user_params = {"email": "whatever@example.com",
+                   "password": "password",
+                   "password_confirmation": ""}
+    post "/api/v1/users", params: user_params
+
+    expect(response.status).to eq(400)
+    expect(response.body).to eq("Password confirmation can't be blank")
   end
 end

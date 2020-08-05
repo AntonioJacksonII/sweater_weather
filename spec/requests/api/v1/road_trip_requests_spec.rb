@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe "Login Request API" do
-  before :each do
+  it "returns the road trip information" do
     user_params = {"email": "whatever@example.com",
                    "password": "password",
                    "password_confirmation": "password"}
@@ -9,9 +9,7 @@ describe "Login Request API" do
     expect(response.status).to eq(201)
     post "/api/v1/sessions", params: user_params
     expect(response.status).to eq(200)
-  end
 
-  it "returns the road trip information" do
     user = User.last
     api_key = user.api_key
     road_trip_params = {"origin": "Denver,CO",
@@ -51,5 +49,14 @@ describe "Login Request API" do
     post "/api/v1/road_trip", params: road_trip_params
 
     expect(response.status).to eq(401)
+    expect(response.body).to eq('Unauthorized')
+
+    road_trip_params = {"origin": "Denver,CO",
+                        "destination": "Pueblo,CO",
+                        "api_key": ""
+                        }
+    post "/api/v1/road_trip", params: road_trip_params
+    expect(response.status).to eq(401)
+    expect(response.body).to eq('Unauthorized')
   end
 end

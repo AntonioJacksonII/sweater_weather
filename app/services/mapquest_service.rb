@@ -12,4 +12,12 @@ class MapquestService
     end
     JSON.parse(response.body, symbolize_names: true)
   end
+
+  def get_travel_time(origin, destination)
+    response = conn.get('directions/v2/route') do |req|
+      req.params['from'] = origin
+      req.params['to'] = destination
+    end
+    JSON.parse(response.body, symbolize_names: true)[:route][:formattedTime]
+  end
 end

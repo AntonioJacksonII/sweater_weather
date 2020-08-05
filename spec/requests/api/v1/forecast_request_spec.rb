@@ -21,7 +21,6 @@ describe "Forecast API" do
     expect(forecast[:attributes][:latitude]).to eq(39.74)
     expect(forecast[:attributes][:longitude]).to eq(-104.98)
     expect(forecast[:attributes][:current_weather]).to_not be_empty
-    expect(forecast[:attributes][:current_weather].keys.count).to eq(9)
     expect(forecast[:attributes][:current_weather]).to have_key(:dt)
     expect(forecast[:attributes][:current_weather]).to have_key(:sunrise)
     expect(forecast[:attributes][:current_weather]).to have_key(:sunset)
@@ -51,11 +50,9 @@ describe "Forecast API" do
     expect(forecast[:attributes][:hourly_forecast].first[:weather][:icon]).to_not be_empty
     expect(forecast[:attributes][:daily_forecast]).to_not be_empty
     expect(forecast[:attributes][:daily_forecast].count).to eq(6)
-    expect(forecast[:attributes][:daily_forecast].first.keys.count).to eq(4)
     expect(forecast[:attributes][:daily_forecast].first).to have_key(:dt)
     expect(forecast[:attributes][:daily_forecast].first).to have_key(:temp)
     expect(forecast[:attributes][:daily_forecast].first).to have_key(:weather)
-    expect(forecast[:attributes][:daily_forecast].first).to have_key(:rain)
     expect(forecast[:attributes][:daily_forecast].first[:temp].keys.count).to eq(2)
     expect(forecast[:attributes][:daily_forecast].first[:temp]).to have_key(:min)
     expect(forecast[:attributes][:daily_forecast].first[:temp]).to have_key(:max)

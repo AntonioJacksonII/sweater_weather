@@ -2,7 +2,7 @@ class Api::V1::ForecastController < ApplicationController
 
   def index
     location = forecast_params[:location]
-    search_results = SearchResults.new(location)
+    search_results = SearchResults.new
     coordinates = search_results.lat_long(location)
     forecast_results = search_results.open_weather_forecast(coordinates)
     forecast = Forecast.new(location, forecast_results)

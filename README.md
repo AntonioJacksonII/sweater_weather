@@ -1,24 +1,7 @@
-# README
+# Sweater Weather
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Project Description
 
-Things you may want to cover:
+I am a back-end developer working on a team that is building an application to plan road trips. This app allows users to see the current weather as well as the forecasted weather at the destination.
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+The team is working in a service-oriented architecture. The front-end will communicate with the back-end through an API. This project exposes the API that satisfies the front-end team’s requirements.

@@ -1,10 +1,6 @@
 class SearchResults
   attr_reader :location
 
-  def initialize(location)
-    @location = location
-  end
-
   def lat_long(location)
     json = MapquestService.new.get_lat_long(location)
     {name: location,
@@ -16,14 +12,14 @@ class SearchResults
     OpenweatherService.new.get_forecast(coordinates)
   end
 
-  def weather_background_image
+  def weather_background_image(location)
     weather = OpenweatherService.new.get_forecast(lat_long(location))[:current][:weather].first[:main]
-    search_query = @location.split(",").first + " #{weather}"
+    search_query = location.split(",").first + " #{weather}"
     UnsplashService.new.get_weather_image(search_query)
   end
 
-  def travel_time(destination)
-    MapquestService.new.get_travel_time(location, destination)
+  def travel_time(origin, destination)
+    MapquestService.new.get_travel_time(origin, destination)
   end
 
   def travel_forecast(destination)

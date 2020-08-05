@@ -3,7 +3,7 @@ class Api::V1::RoadTripController < ApplicationController
   def create
     origin = route_params[:origin]
     destination = route_params[:destination]
-    if valid_api_key
+    if User.valid_api_key?(route_params[:api_key])
       search_results = SearchResults.new
       travel_time = search_results.travel_time(origin, destination)
       travel_forecast = search_results.travel_forecast(destination)
@@ -18,9 +18,5 @@ class Api::V1::RoadTripController < ApplicationController
 
   def route_params
     params.permit(:origin, :destination, :api_key)
-  end
-
-  def valid_api_key
-    User.find_by(api_key: route_params[:api_key])
   end
 end

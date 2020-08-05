@@ -23,7 +23,7 @@ describe "User Registration API" do
     expect(user[:attributes][:api_key]).to_not be_empty
   end
 
-  it "returns a 400 level status code with a description for unsuccessful requests" do
+  it "returns a 400 level status code for mismatched passwords and password confirmations" do
     user_params = {"email": "whatever@example.com",
                    "password": "password",
                    "password_confirmation": "passwor"}
@@ -31,5 +31,23 @@ describe "User Registration API" do
 
     expect(response.status).to eq(400)
     expect(response.body).to eq("Password confirmation doesn't match Password")
+
+    user_params = {"email": "whatever@example.com",
+                   "password": "passwor",
+                   "password_confirmation": "password"}
+    post "/api/v1/users", params: user_params
+
+    expect(response.status).to eq(400)
+  end
+
+  it "returns a 400 level status code for nonunique emails" do
+    user_params = {"email": "whatever@example.com",
+                   "password": "password",
+                   "password_confirmation": "password"}
+    post "/api/v1/users", params: user_params
+    post "/api/v1/users", params: user_params
+
+    expect(response.status).to eq(400)
+    expect(response.body).to eq("Email has already been taken")
   end
 end

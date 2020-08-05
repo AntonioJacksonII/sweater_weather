@@ -42,4 +42,14 @@ describe "Login Request API" do
     expect(road_trip[:attributes][:forecast]).to have_key(:description)
     expect(road_trip[:attributes][:forecast][:description]).to_not be_empty
   end
+
+  it "returns a 401 status code for no api_key or incorrect api_key" do
+    road_trip_params = {"origin": "Denver,CO",
+                        "destination": "Pueblo,CO",
+                        "api_key": "1"
+                        }
+    post "/api/v1/road_trip", params: road_trip_params
+
+    expect(response.status).to eq(401)
+  end
 end

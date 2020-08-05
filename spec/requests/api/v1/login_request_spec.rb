@@ -17,7 +17,7 @@ describe "Login Request API" do
     post "/api/v1/sessions", params: user_params
 
     expect(response.status).to eq(200)
-    
+
     json = JSON.parse(response.body, symbolize_names: true)
     user = json[:data]
 
@@ -30,5 +30,16 @@ describe "Login Request API" do
     expect(user[:attributes]).to have_key(:api_key)
     expect(user[:attributes][:api_key]).to_not be_empty
     expect(user[:attributes][:email]).to_not be_empty
+  end
+
+  it "returns a 400 level status code for unrecognized emails" do
+    user_params = {"email": "whateve@example.com",
+                   "password": "password",
+                   "password_confirmation": "password"}
+
+    post "/api/v1/sessions", params: user_params
+
+    expect(response.status).to eq(400)
+    expect(response.body).to eq('The entered email address does not identify a user')
   end
 end

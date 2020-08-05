@@ -22,4 +22,17 @@ describe "User Registration API" do
     expect(user[:attributes]).to have_key(:api_key)
     expect(user[:attributes][:api_key]).to_not be_empty
   end
+
+  it "returns a 400 level status code with a description for unsuccessful requests" do
+    user_params = {"email": "whatever@example.com",
+                   "password": "password",
+                   "password_confirmation": "passwor"}
+    post "/api/v1/users", params: user_params
+
+    expect(response).to be unsuccessful
+    expect(response.status).to eq(400)
+
+    json = JSON.parse(response.body, symbolize_names: true)
+    require "pry"; binding.pry
+  end
 end

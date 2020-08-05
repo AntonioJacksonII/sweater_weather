@@ -24,6 +24,5 @@ describe MapquestService do
         expect(results).to eq('01:43:57')
       end
     end
-
   end
 end

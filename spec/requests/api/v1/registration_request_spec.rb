@@ -8,6 +8,7 @@ describe "User Registration API" do
     post "/api/v1/users", params: user_params
 
     expect(response).to be_successful
+    expect(response.status).to eq(201)
 
     json = JSON.parse(response.body, symbolize_names: true)
     user = json[:data]

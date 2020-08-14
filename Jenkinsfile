@@ -1,10 +1,19 @@
 pipeline {
     agent { docker { image 'ruby' } }
     stages {
-        stage('build') {
+        stage('test') {
             steps {
                 sh 'ruby --version'
+                sh 'bundle exec rspec'
             }
         }
+    }
+    post {
+      success {
+        echo 'Successful'
+      }
+      failure {
+        echo 'Failure'
+      }
     }
 }

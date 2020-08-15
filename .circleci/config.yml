@@ -11,7 +11,13 @@ jobs:
           POSTGRES_USER: sweater_weather
           POSTGRES_DB: circle_test
           POSTGRES_PASSWORD: ""
-
+    environment:
+      BUNDLE_JOBS: "3"
+      BUNDLE_RETRY: "3"
+      PGHOST: 127.0.0.1
+      PGUSER: sweater_weather
+      PGPASSWORD: ""
+      RAILS_ENV: test
     executor: ruby/default
     steps:
       - checkout

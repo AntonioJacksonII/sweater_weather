@@ -1,15 +1,23 @@
 version: 2.1
 orbs:
   ruby: circleci/ruby@0.1.2
-
-jobs:
-  build:
-    docker:
-      - image: circleci/ruby:2.6.3-stretch-node
-    executor: ruby/default
-    steps:
-      - checkout
-      - run:
-          name: Which bundler?
-          command: gem install bundler
-      - ruby/bundle-install
+  heroku: circleci/heroku@x.y # Use the Heroku orb in your config
+ workflows:
+   heroku_deploy:
+     jobs:
+       build:
+         docker:
+           - image: circleci/ruby:2.6.3-stretch-node
+           executor: ruby/default
+           steps:
+             - checkout
+             - run:
+               name: Install bundler
+               command: gem install bundler
+               - ruby/bundle-install
+       - heroku/deploy-via-git:
+           requires:
+             - build # only run deploy-via-git job if the build job has completed
+           filters:
+             branches:
+               only: main # only run deploy-via-git job on master branch

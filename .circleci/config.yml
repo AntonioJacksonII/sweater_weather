@@ -11,10 +11,10 @@ orbs:
            executor: ruby/default
            steps:
              - checkout
-             - run:
+              run:
                name: Install bundler
                command: gem install bundler
-               - ruby/bundle-install
+                ruby/bundle-install
        - heroku/deploy-via-git:
            requires:
              - build # only run deploy-via-git job if the build job has completed

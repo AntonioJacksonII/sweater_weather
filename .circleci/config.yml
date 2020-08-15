@@ -15,7 +15,7 @@ jobs:
       - ruby/bundle-install
   deploy:
     docker:
-     - image: circleci/ruby:2.6.3-stretch-node
+      - image: circleci/ruby:2.6.3-stretch-node
      steps:
        - checkout
        - run:

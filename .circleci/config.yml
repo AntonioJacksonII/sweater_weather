@@ -13,6 +13,12 @@ jobs:
           name: Install bundler
           command: gem install bundler
       - ruby/bundle-install
+      - run:
+          name: Create database
+          command: bundle exec rails db:{create,migrate,seed}
+      - run:
+          name: Run tests
+          command: bundle exec rspec
   deploy:
     docker:
       - image: circleci/ruby:2.6.3-stretch-node

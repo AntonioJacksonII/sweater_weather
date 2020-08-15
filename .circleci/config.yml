@@ -48,22 +48,7 @@ workflows:
       - build
       - deploy:
           requires:
-            - build # only run deploy-via-git job if the build job has completed
+            - build
           filters:
             branches:
-              only: main # only run deploy-via-git job on master branch
-
-
- # orbs:
- #   heroku: circleci/heroku@x.y # Use the Heroku orb in your config
- #
- # workflows:
- #   heroku_deploy:
- #     jobs:
- #       - build
- #       - heroku/deploy-via-git:
- #           requires:
- #             - build # only run deploy-via-git job if the build job has completed
- #           filters:
- #             branches:
- #               only: main # only run deploy-via-git job on master branch
+              only: main
